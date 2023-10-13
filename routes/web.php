@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,27 @@ Route::middleware(['auth'])->group(function(){
     })->name('home');
     Route::resource('user', UserController::class);
 });
+
+// resource route for subject with middleware auth
+Route::middleware(['auth'])->group(function(){
+    Route::resource('subject', SubjectController::class);
+});
+
+// resource route for schedule with middleware auth
+Route::middleware(['auth'])->group(function(){
+    Route::resource('schedule', \App\Http\Controllers\ScheduleController::class);
+});
+
+//get route for generate qrcode with middleware auth
+Route::middleware(['auth'])->group(function(){
+    Route::get('generate-qrcode{schedule}', [\App\Http\Controllers\ScheduleController::class, 'generateQrCode'])->name('generate-qrcode');
+});
+
+// put route for generate qrcode with middleware auth
+Route::middleware(['auth'])->group(function(){
+    Route::put('generate-qrcode-update{schedule}', [\App\Http\Controllers\ScheduleController::class, 'generateQrCodeUpdate'])->name('generate-qrcode-update');
+});
+
 
 // Route::get('/login', function () {
 //     return view('pages.auth.auth-login');
