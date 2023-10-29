@@ -5,20 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AbsensiMatkul extends Model
+class StudentSchedule extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'schedule_id',
         'student_id',
-        'kode_absensi',
-        'tahun_akademik',
-        'semester',
-        'pertemuan',
-        'latitude',
-        'longtitude',
-        'status',
+        'schedule_id',
         'created_by',
         'updated_by',
     ];
@@ -32,6 +25,6 @@ class AbsensiMatkul extends Model
     //belongto student
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(User::class);
     }
 }
